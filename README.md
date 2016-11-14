@@ -11,6 +11,14 @@
 
 ##My Submission Notes
 
+Code design for my "paymo_fraud.py" submission centers around a Python dictionary "Nset1st" which maps each paymo user appearing in the transaction files to a Python set of all users having a shared transaction, i.e., all the set of all "1st degree friends" based on the given transaction records. This structure has some redundancy storing the information as it does in both directions for each edge of the graph (transaction) but seems worth it.
+
+I attemped to utilize a second similar structure of "2nd degree friends" the cost of maintaining this structure appears to outweigh the value of having it, at least with my implementation and testing, and so I have abandoned that approach.
+
+Batch records are loaded into the main data structure "Nset1st", then processing of the stream records begins and for that part there is a new step -- evaluate "trusted" vs "unverified" and write to file(s) -- which is done prior to updating Nset1st for each new transaction.
+
+Have not exhausted optimization possibilities!!! On the other hand I have not been able to figure out how to improved results with any more simple approach than this.
+
 ##Challenge Summary
 
 Imagine you're a data engineer at a "digital wallet" company called PayMo that allows users to easily request and make payments to other PayMo users. The team at PayMo has decided they want to implement features to prevent fraudulent payment requests from untrusted users. 
